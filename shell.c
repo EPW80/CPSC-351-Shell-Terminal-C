@@ -126,6 +126,7 @@ int parse(char * s, char * argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS]) {
       output_file = token;
       append = true;
     } else if (strcmp(token, "|") == 0) {
+      argv[cmd_count][arg_count] = NULL; // Null terminate the arguments list for the current command
       cmd_count++;
       arg_count = 0;
     } else {
@@ -135,7 +136,7 @@ int parse(char * s, char * argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS]) {
     token = strtok(NULL, " \t\n\v\f\r");
   }
 
-  argv[cmd_count][arg_count] = NULL;
+  argv[cmd_count][arg_count] = NULL; // Null terminate the arguments list for the last command
 
   if (input_file != NULL) {
     redirect_input(input_file);
@@ -151,6 +152,9 @@ int parse(char * s, char * argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS]) {
 // Function to execute a parsed command
 int execute(char * input) {
   char * shell_argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS];
+  int arg_count[MAX_PIPE_COMMANDS] = {
+    0
+  };
 
   // Initialize shell_argv to NULL
   for (int i = 0; i < MAX_PIPE_COMMANDS; i++) {
@@ -161,11 +165,23 @@ int execute(char * input) {
 
   int shell_argc = parse(input, shell_argv);
 
+  // Calculate the argument count for each command
+  for (int i = 0; i <= shell_argc; i++) {
+    for (int j = 0; j < MAX_CMD_LINE_ARGS; j++) {
+      if (shell_argv[i][j] != NULL) {
+        arg_count[i]++;
+      } else {
+        break;
+      }
+    }
+  }
+
   int status = 0;
   bool run_in_background = false;
 
-  if (shell_argc > 0 && strcmp(shell_argv[shell_argc - 1][0], "&") == 0) {
-    shell_argv[shell_argc - 1][0] = NULL; // Remove "&" from arguments
+  // Check if the last argument of the last command is "&"
+  if (arg_count[shell_argc] > 0 && strcmp(shell_argv[shell_argc][arg_count[shell_argc] - 1], "&") == 0) {
+    shell_argv[shell_argc][arg_count[shell_argc] - 1] = NULL; // Remove "&" from arguments
     run_in_background = true;
   }
 
@@ -241,30 +257,25 @@ int main(int argc,
 }
 
 /*
-
 epw@EPWPC:~/shell_project$ gcc -o shell shell.c
 epw@EPWPC:~/shell_project$ sudo ./shell
 osh > ls -l
-total 40
--rw-r--r-- 1 epw  epw    183 Sep 16 12:49  input.txt
--rw-r--r-- 1 root root    12 Sep 16 12:55 'out.txt),'
--rw-r--r-- 1 root root   189 Sep 16 12:55  output.txt
--rwxr-xr-x 1 epw  epw  17240 Sep 16 13:00  shell
--rw-r--r-- 1 epw  epw   5671 Sep 16 13:00  shell.c
+total 36
+-rw-r--r-- 1 epw  epw    183 Sep 16 13:35 input.txt
+-rw-r--r-- 1 root root   202 Sep 17 11:26 output.txt
+-rwxr-xr-x 1 epw  epw  17192 Sep 17 11:28 shell
+-rw-r--r-- 1 epw  epw   7122 Sep 17 11:21 shell.c
 osh > cat < input.txt > output.txt
 epw@EPWPC:~/shell_project$ sudo ./shell
-osh > ls -l | grep "output.txt"
-total 36
--rw-r--r-- 1 epw  epw    183 Sep 16 12:49 input.txt
--rw-r--r-- 1 root root   202 Sep 16 13:01 output.txt
--rwxr-xr-x 1 epw  epw  17240 Sep 16 13:00 shell
--rw-r--r-- 1 epw  epw   5671 Sep 16 13:00 shell.c
+osh > ls -l | grep output.txt  
+-rw-r--r-- 1 root root   202 Sep 17 11:29 output.txt
 osh > !!
-total 36
--rw-r--r-- 1 epw  epw    183 Sep 16 12:49 input.txt
--rw-r--r-- 1 root root   202 Sep 16 13:01 output.txt
--rwxr-xr-x 1 epw  epw  17240 Sep 16 13:00 shell
--rw-r--r-- 1 epw  epw   5671 Sep 16 13:00 shell.c
+-rw-r--r-- 1 root root   202 Sep 17 11:29 output.txt
+osh > ls -la | grep Sep | more
+drwxr-xr-x  7 epw  epw   4096 Sep 16 21:23 .git
+-rw-r--r--  1 epw  epw    183 Sep 16 13:35 input.txt
+-rw-r--r--  1 root root   202 Sep 17 11:29 output.txt
+-rw-r--r--  1 epw  epw   7122 Sep 17 11:21 shell.c
 osh > exit
                 ...exiting
 */

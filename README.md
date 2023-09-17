@@ -37,7 +37,6 @@ command1 [arg1 arg2 ...] [| command2 [arg1 arg2 ...]] [< input_file] [> output_f
 
 - Pipe symbol to chain multiple commands. The output of the preceding command will be the input to the following command. |
 - Redirect input from a file. <
-
 - Redirect output to a file (overwrite if file exists). > 
 - Append output to a file. >> 
 - Run command in the background (not wait for it to finish). >>& 
@@ -64,11 +63,9 @@ int parse(char* s, char* argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS])
 - argv: A 2D array to store the commands and their arguments.
 - Return: The number of commands parsed.
 - int execute(char\* input)
-
 - input: A string containing the entire command input.
 - Return: 0 on success, -1 on failure.
 - void execute_pipeline(char\* args[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS], int n)
-
 - args: A 2D array containing the commands and their arguments.
 - n: The number of commands to execute.
 
