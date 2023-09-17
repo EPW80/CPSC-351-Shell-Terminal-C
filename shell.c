@@ -241,19 +241,6 @@ int main(int argc,
 }
 
 /*
-Output showing the program running:
-osh > ls -l
-(total files and directories listed)
-osh > cat < input.txt > output.txt
-osh > ls -l | grep "output.txt"
-(output.txt file details shown)
-osh > !!
-(output.txt file details shown again)
-osh > exit
-        ...exiting
-
-
-
 
 epw@EPWPC:~/shell_project$ gcc -o shell shell.c
 epw@EPWPC:~/shell_project$ sudo ./shell
