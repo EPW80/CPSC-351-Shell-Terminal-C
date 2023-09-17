@@ -35,12 +35,12 @@ Once you run the executable, you can enter commands in the following format:
 command1 [arg1 arg2 ...] [| command2 [arg1 arg2 ...]] [< input_file] [> output_file] [>> append_output_file] [&]
 ```
 
-| - Pipe symbol to chain multiple commands. The output of the preceding command will be the input to the following command.
-< - Redirect input from a file.
+- Pipe symbol to chain multiple commands. The output of the preceding command will be the input to the following command. |
+- Redirect input from a file. <
 
-> - Redirect output to a file (overwrite if file exists).
->> - Append output to a file.
->>& - Run command in the background (not wait for it to finish).
+- Redirect output to a file (overwrite if file exists). > 
+- Append output to a file. >> 
+- Run command in the background (not wait for it to finish). >>& 
 
 - For example:
 
