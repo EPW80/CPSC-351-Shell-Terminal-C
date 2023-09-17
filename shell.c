@@ -259,23 +259,30 @@ int main(int argc,
 /*
 epw@EPWPC:~/shell_project$ gcc -o shell shell.c
 epw@EPWPC:~/shell_project$ sudo ./shell
+[sudo] password for epw: 
 osh > ls -l
 total 36
 -rw-r--r-- 1 epw  epw    183 Sep 16 13:35 input.txt
--rw-r--r-- 1 root root   202 Sep 17 11:26 output.txt
--rwxr-xr-x 1 epw  epw  17192 Sep 17 11:28 shell
--rw-r--r-- 1 epw  epw   7122 Sep 17 11:21 shell.c
+-rw-r--r-- 1 root root   202 Sep 17 11:29 output.txt
+-rwxr-xr-x 1 epw  epw  17192 Sep 17 14:10 shell
+-rw-r--r-- 1 epw  epw   7069 Sep 17 12:55 shell.c
 osh > cat < input.txt > output.txt
 epw@EPWPC:~/shell_project$ sudo ./shell
-osh > ls -l | grep output.txt  
--rw-r--r-- 1 root root   202 Sep 17 11:29 output.txt
+osh > ls -l | grep output.txt
+-rw-r--r-- 1 root root   202 Sep 17 14:10 output.txt
 osh > !!
--rw-r--r-- 1 root root   202 Sep 17 11:29 output.txt
+-rw-r--r-- 1 root root   202 Sep 17 14:10 output.txt
 osh > ls -la | grep Sep | more
-drwxr-xr-x  7 epw  epw   4096 Sep 16 21:23 .git
 -rw-r--r--  1 epw  epw    183 Sep 16 13:35 input.txt
--rw-r--r--  1 root root   202 Sep 17 11:29 output.txt
--rw-r--r--  1 epw  epw   7122 Sep 17 11:21 shell.c
-osh > exit
+-rw-r--r--  1 root root   202 Sep 17 14:10 output.txt
+-rwxr-xr-x  1 epw  epw  17192 Sep 17 14:10 shell
+-rw-r--r--  1 epw  epw   7069 Sep 17 12:55 shell.c
+osh > cat shell.c | head -10 | tail -5
+
+#include <stdlib.h>
+
+#include <stdbool.h>
+
+osh > exit   
                 ...exiting
 */
