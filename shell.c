@@ -208,7 +208,7 @@ int main(int argc,
 
     if (fgets(input, BUFSIZ, stdin) == NULL) {
       if (feof(stdin)) {
-        // End of file reached, exit gracefully
+        // End of file reached, exit
         break;
       }
       fprintf(stderr, "no command entered\n");

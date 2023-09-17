@@ -18,13 +18,13 @@ These instructions will get you a copy of the project up and running on your loc
 - Compile the source files using a C compiler:
 
 ```
-gcc -o pipeline_executor main.c
+gcc -o shell shell.c
 ```
 
 - Run the executable:
 
 ```
-./pipeline_executor
+./shell
 ```
 
 ## Usage
@@ -39,8 +39,8 @@ command1 [arg1 arg2 ...] [| command2 [arg1 arg2 ...]] [< input_file] [> output_f
 < - Redirect input from a file.
 
 > - Redirect output to a file (overwrite if file exists).
->   > - Append output to a file.
->   >   & - Run command in the background (not wait for it to finish).
+>> - Append output to a file.
+>>& - Run command in the background (not wait for it to finish).
 
 - For example:
 
@@ -71,6 +71,11 @@ int parse(char* s, char* argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS])
 
 - args: A 2D array containing the commands and their arguments.
 - n: The number of commands to execute.
+
+## Constants
+
+- MAX_PIPE_COMMANDS: The maximum number of commands in a pipeline.
+- MAX_CMD_LINE_ARGS: The maximum number of arguments per command.
 
 ## Contributor
 
