@@ -1,6 +1,6 @@
 # unix_shell project
 
-This project implements a simple shell command pipeline executor, which allows the execution of multiple commands chained by pipes and handles input/output redirections. The primary components include functions for parsing the command-line inputs, executing single commands, and managing pipelines of commands.
+This project implements a simple UNIX shell program that supports the execution of multiple commands chained by pipes (`|`) along with input/output redirection. The shell is capable of handling multiple pipes in a command, allowing users to create more complex command pipelines. It has been designed to mimic some functionalities of a traditional UNIX shell, providing a user-friendly way to interact with the system.
 
 ## Getting Started
 
