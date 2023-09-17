@@ -79,7 +79,7 @@ int parse(char* s, char* argv[MAX_PIPE_COMMANDS][MAX_CMD_LINE_ARGS])
 
 ## Demo:
 
-
+![](./demo.gif)
 
 ## Contributor
 
